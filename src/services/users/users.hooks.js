@@ -4,6 +4,8 @@ const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
 
+const newuser = require('../../hooks/newuser');
+
 module.exports = {
   before: {
     all: [],
@@ -23,7 +25,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [newuser()],
     update: [],
     patch: [],
     remove: []

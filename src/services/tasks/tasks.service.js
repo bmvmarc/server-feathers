@@ -8,6 +8,7 @@ module.exports = function (app) {
     Model: createModel(app),
     paginate: app.get('paginate')
     // ,multi: ['remove']
+    , events: [ 'newtask' ]
   };
 
   // Initialize our service with any options it requires
