@@ -1,5 +1,5 @@
-const { Service } = require('feathers-nedb');
+const { Service } = require('feathers-mongoose');
 
 exports.UserFiles = class UserFiles extends Service {
-  
+
 };

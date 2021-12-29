@@ -1,12 +1,19 @@
-const NeDB = require('nedb');
-const path = require('path');
-
 module.exports = function (app) {
-  const dbPath = app.get('nedb');
-  const Model = new NeDB({
-    filename: path.join(dbPath, 'user.files.db'),
-    autoload: true
+  const modelName = 'user.files';
+  const mongooseClient = app.get('mongooseClient');
+  const { Schema } = mongooseClient;
+  const schema = new Schema({
+    fileName: { type: String, required: true },
+    userId: { type: String, required: true },
+    path: { type: String, required: true },
+    contentType: { type: String, required: true }
+  }, {
+    timestamps: true
   });
 
-  return Model;
+  if (mongooseClient.modelNames().includes(modelName)) {
+    mongooseClient.deleteModel(modelName);
+  }
+  return mongooseClient.model(modelName, schema);
+
 };
