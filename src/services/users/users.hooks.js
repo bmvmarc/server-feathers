@@ -1,4 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { when } = require('feathers-hooks-common');
 
 const {
   hashPassword, protect
@@ -6,9 +7,11 @@ const {
 
 const newuser = require('../../hooks/newuser');
 
+const authorize = require('../../hooks/authorize');
+
 module.exports = {
   before: {
-    all: [],
+    all: [ authorize() ],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
     create: [ hashPassword('password') ],
@@ -18,7 +21,7 @@ module.exports = {
   },
 
   after: {
-    all: [ 
+    all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
       protect('password')

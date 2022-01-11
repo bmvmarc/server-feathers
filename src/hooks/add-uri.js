@@ -5,8 +5,6 @@
 module.exports = (options = {}) => {
   return async context => {
 
-    console.log(context.result)
-
     const { app, method, result, params } = context;
 
     const addURI = async message => {

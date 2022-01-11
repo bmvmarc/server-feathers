@@ -11,9 +11,6 @@ module.exports = (options = {}) => {
       path: context.result.id,
       contentType: context.result.contentType
     })
-
-    console.log(res)
-
     return context;
 
   };
